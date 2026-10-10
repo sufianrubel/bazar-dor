@@ -2,16 +2,27 @@
 
 import { Dropdown } from "@heroui/react";
 import Image from "next/image";
-import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FiChevronDown, FiLogOut, FiUser } from "react-icons/fi";
-import { mockUser } from "@/data/mock-user";
-import { actionMessages } from "@/data/action-messages";
+import { signOutUser } from "@/lib/auth-actions";
 
-export default function ProfileMenu() {
+export default function ProfileMenu({ user }) {
+  const router = useRouter();
+  const [isSigningOut, setIsSigningOut] = useState(false);
+  const name = user.name?.trim() || user.email;
+  const shortName = name.split(/\s+/)[0];
+
+  async function handleSignOut() {
+    setIsSigningOut(true);
+    await signOutUser(router);
+    setIsSigningOut(false);
+  }
+
   return (
     <Dropdown>
       <Dropdown.Trigger
-        aria-label={`${mockUser.shortName}-এর প্রোফাইল মেনু খুলুন`}
+        aria-label={`${shortName}-এর প্রোফাইল মেনু খুলুন`}
         className="flex items-center gap-2 rounded-xl p-1 text-left transition hover:bg-[#f0f5f1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#078a45]"
       >
         <span
@@ -27,10 +38,10 @@ export default function ProfileMenu() {
           />
         </span>
         <span className="text-sm font-medium text-[#202b23]">
-          {mockUser.shortName}
+          {shortName}
         </span>
         <FiChevronDown
-          className="ml-0.5 size-3 text-[#77827a] transition group-data-[pressed]:rotate-180"
+          className="ml-0.5 size-3 text-[#77827a] transition group-data-pressed:rotate-180"
           aria-hidden="true"
         />
       </Dropdown.Trigger>
@@ -40,10 +51,10 @@ export default function ProfileMenu() {
       >
         <div className="px-2 py-1.5">
           <p className="text-sm font-semibold leading-5 text-[#263229]">
-            {mockUser.name}
+            {name}
           </p>
           <p className="text-xs leading-4 text-[#748077]">
-            {mockUser.email}
+            {user.email}
           </p>
         </div>
         <Dropdown.Menu
@@ -60,11 +71,12 @@ export default function ProfileMenu() {
           </Dropdown.Item>
           <Dropdown.Item
             id="sign-out"
+            isDisabled={isSigningOut}
             className="flex min-h-8 items-center gap-2 rounded-lg px-2 text-sm text-[#d74640] outline-none transition hover:bg-[#fff0ee] focus:bg-[#fff0ee]"
-            onAction={() => toast(actionMessages.signOutUnavailable)}
+            onAction={handleSignOut}
           >
             <FiLogOut className="size-4" aria-hidden="true" />
-            সাইন আউট
+            {isSigningOut ? "অপেক্ষা করুন..." : "সাইন আউট"}
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown.Popover>

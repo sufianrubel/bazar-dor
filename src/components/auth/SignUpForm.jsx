@@ -2,21 +2,25 @@
 
 import { Button } from "@heroui/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { actionMessages } from "@/data/action-messages";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import SocialAuthOptions from "@/components/auth/SocialAuthOptions";
 import { formInputClassName } from "@/constants/form-styles";
+import { authClient } from "@/lib/auth-client";
 
-export default function SignupForm() {
+export default function SignupForm({ socialProviders }) {
+  const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordMismatch, setPasswordMismatch] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     if (password !== confirmPassword) {
@@ -26,7 +30,35 @@ export default function SignupForm() {
     }
 
     setPasswordMismatch(false);
-    toast.error(actionMessages.signupUnavailable);
+    const formData = new FormData(event.currentTarget);
+    setIsLoading(true);
+
+    try {
+      const { error } = await authClient.signUp.email({
+        name: formData.get("name"),
+        email: formData.get("email"),
+        password,
+        callbackURL: "/",
+      });
+
+      if (error) {
+        console.error("Email sign-up rejected:", error.message);
+        toast.error(actionMessages.signupFailed);
+        return;
+      }
+
+      toast.success(actionMessages.signupSuccess);
+      router.replace("/");
+      router.refresh();
+    } catch (error) {
+      console.error(
+        "Email sign-up request failed:",
+        error instanceof Error ? error.message : "Unknown error.",
+      );
+      toast.error(actionMessages.signupFailed);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -162,12 +194,13 @@ export default function SignupForm() {
 
       <Button
         type="submit"
+        isDisabled={isLoading}
         className="mt-4 inline-flex min-h-10 w-full items-center justify-center rounded-lg bg-[#078a45] px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-[#06763b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#078a45]"
       >
-        অ্যাকাউন্ট তৈরি করুন
+        {isLoading ? "অপেক্ষা করুন..." : "অ্যাকাউন্ট তৈরি করুন"}
       </Button>
 
-      <SocialAuthOptions action="signup" />
+      <SocialAuthOptions providers={socialProviders} />
 
       <p className="mt-3 text-center text-sm text-[#667269]">
         অ্যাকাউন্ট আছে?{" "}

@@ -2,23 +2,62 @@
 
 import { Button } from "@heroui/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import SocialAuthOptions from "@/components/auth/SocialAuthOptions";
 import { formInputClassName } from "@/constants/form-styles";
 import { actionMessages } from "@/data/action-messages";
+import { authClient } from "@/lib/auth-client";
 
-export default function SigninForm() {
+export default function SigninForm({
+  socialProviders,
+  redirectTo,
+  redirectedFromProduct,
+}) {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  function handleSubmit(event) {
+  useEffect(() => {
+    if (redirectedFromProduct) {
+      toast(actionMessages.productSignInRequired);
+    }
+  }, [redirectedFromProduct]);
+
+  async function handleSubmit(event) {
     event.preventDefault();
+    const formData = new FormData(event.currentTarget);
     setIsLoading(true);
-    toast.error(actionMessages.signInUnavailable);
-    window.setTimeout(() => setIsLoading(false), 350);
+
+    try {
+      const { error } = await authClient.signIn.email({
+        email: formData.get("email"),
+        password: formData.get("password"),
+        rememberMe,
+        callbackURL: redirectTo,
+      });
+
+      if (error) {
+        console.error("Email sign-in rejected:", error.message);
+        toast.error(actionMessages.signInFailed);
+        return;
+      }
+
+      toast.success(actionMessages.signInSuccess);
+      router.replace(redirectTo);
+      router.refresh();
+    } catch (error) {
+      console.error(
+        "Email sign-in request failed:",
+        error instanceof Error ? error.message : "Unknown error.",
+      );
+      toast.error(actionMessages.signInFailed);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -113,7 +152,7 @@ export default function SigninForm() {
         {isLoading ? "অপেক্ষা করুন..." : "সাইন ইন"}
       </Button>
 
-      <SocialAuthOptions action="signin" />
+      <SocialAuthOptions providers={socialProviders} callbackURL={redirectTo} />
 
       <p className="mt-3 text-center text-sm text-[#667269]">
         অ্যাকাউন্ট নেই?{" "}

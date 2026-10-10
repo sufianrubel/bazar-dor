@@ -1,12 +1,22 @@
 "use client";
 
 import Image from "next/image";
-import toast from "react-hot-toast";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FiLogOut } from "react-icons/fi";
-import { mockUser } from "@/data/mock-user";
-import { actionMessages } from "@/data/action-messages";
+import { signOutUser } from "@/lib/auth-actions";
 
-export default function ProfileSummary() {
+export default function ProfileSummary({ user }) {
+  const router = useRouter();
+  const [isSigningOut, setIsSigningOut] = useState(false);
+
+  async function handleSignOut() {
+    setIsSigningOut(true);
+    await signOutUser(router);
+    setIsSigningOut(false);
+  }
+
   return (
     <section
       aria-label="অ্যাকাউন্টের তথ্য"
@@ -27,20 +37,27 @@ export default function ProfileSummary() {
         </span>
         <div className="min-w-0">
           <h2 className="truncate text-base font-bold text-[#263229] sm:text-lg">
-            {mockUser.name}
+            {user.name}
           </h2>
           <p className="truncate text-sm text-[#748077]">
-            {mockUser.email}
+            {user.email}
           </p>
         </div>
       </div>
+      <Link
+        href="/profile/update"
+        className="inline-flex min-h-10 shrink-0 items-center justify-center rounded-lg bg-[#078a45] px-3 text-sm font-semibold text-white transition hover:bg-[#06763b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#078a45] sm:min-h-9"
+      >
+        তথ্য আপডেট
+      </Link>
       <button
         type="button"
-        onClick={() => toast(actionMessages.signOutUnavailable)}
+        onClick={handleSignOut}
+        disabled={isSigningOut}
         className="inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-lg border border-[#e4544d] px-3 text-sm font-medium text-[#d74640] transition hover:bg-[#fff0ee] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d74640] sm:min-h-9"
       >
         <FiLogOut aria-hidden="true" />
-        সাইন আউট
+        {isSigningOut ? "অপেক্ষা করুন..." : "সাইন আউট"}
       </button>
     </section>
   );

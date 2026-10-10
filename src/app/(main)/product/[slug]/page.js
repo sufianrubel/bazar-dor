@@ -1,4 +1,5 @@
-import { notFound } from "next/navigation";
+import { headers } from "next/headers";
+import { notFound, redirect } from "next/navigation";
 import ApiErrorState from "@/components/shared/ApiErrorState";
 import ProductBreadcrumbs from "@/components/product/ProductBreadcrumbs";
 import ProductDetailHeader from "@/components/product/ProductDetailHeader";
@@ -6,6 +7,7 @@ import ProductPriceDetails from "@/components/product/ProductPriceDetails";
 import PriceTicker from "@/components/layout/PriceTicker";
 import SiteFooter from "@/components/layout/SiteFooter";
 import SiteHeader from "@/components/layout/SiteHeader";
+import { auth } from "@/lib/auth";
 import { ApiError } from "@/lib/api-client";
 import { getCategoryForProduct, getProductBySlug } from "@/lib/catalog";
 
@@ -13,6 +15,10 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
+  const session = await auth.api.getSession({ headers: await headers() });
+
+  if (!session) return { title: "সাইন ইন প্রয়োজন | বাজার দর" };
+
   let product;
 
   try {
@@ -32,6 +38,16 @@ export async function generateMetadata({ params }) {
 
 export default async function ProductDetailPage({ params }) {
   const { slug } = await params;
+  const session = await auth.api.getSession({ headers: await headers() });
+
+  if (!session) {
+    const query = new URLSearchParams({
+      redirected: "product",
+      next: `/product/${slug}`,
+    });
+    redirect(`/signin?${query}`);
+  }
+
   let product;
   let loadFailed = false;
 

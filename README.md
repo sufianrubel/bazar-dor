@@ -10,8 +10,8 @@ Bazar Dor is a modern, responsive web application that helps users explore daily
 * **Price trends** — Discover products with increasing or decreasing prices.
 * **Product details** — View API market ranges and product price summaries.
 * **Responsive design** — Layouts adapt to mobile, tablet, and desktop.
-* **Account UI** — Sign-in, sign-up, and profile screens are in place. Authentication actions remain placeholders while BetterAuth integration is completed.
-* **Notifications** — Show feedback for unavailable actions and form validation.
+* **Authentication** — Persisted email/password sessions with optional Google and GitHub sign-in through BetterAuth.
+* **Notifications** — Show localized success and error feedback for account actions and form validation.
 
 ## 🛠️ Tech Stack
 
@@ -54,7 +54,14 @@ Copy the environment template to `.env.local` in the project root:
 cp .env.example .env.local
 ```
 
-`NEXT_PUBLIC_API_URL` is the configured API base URL. Replace it if your API provider supplies a different URL. BetterAuth and OAuth settings in the template are placeholders for the authentication integration phase. Keep secret values private and never commit `.env.local`.
+`NEXT_PUBLIC_API_URL` is the configured API base URL. Replace it if your API provider supplies a different URL. BetterAuth requires a reachable MongoDB database, a strong secret, and the application's origin:
+
+* Set `MONGODB_URI` and `MONGODB_DB` to a MongoDB replica set and database (MongoDB Atlas supports the transactions BetterAuth uses). For local development, start MongoDB with `mongod --replSet rs0 --bind_ip localhost`, then initialize it with `mongosh --eval "rs.initiate()"` to match the sample URI.
+* Generate `BETTER_AUTH_SECRET` with `openssl rand -base64 32`.
+* Set `BETTER_AUTH_URL` to the application origin (for example, `http://localhost:3000`).
+* Google and GitHub sign-in are optional. Configure both client ID and secret for each provider to enable its button. Set each provider's callback URL to `<BETTER_AUTH_URL>/api/auth/callback/google` or `<BETTER_AUTH_URL>/api/auth/callback/github`.
+
+Keep secret values private and never commit `.env.local`. Authentication uses the Node.js runtime and a MongoDB deployment reachable from the application server.
 
 ### 4. Start the Development Server
 

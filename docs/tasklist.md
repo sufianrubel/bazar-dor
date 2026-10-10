@@ -43,33 +43,33 @@ Phase 5 — Category Pages
 [x] Add return-home CTA for invalid categories
 
 Phase 6 — Authentication
-[ ] Configure BetterAuth server and client
-[ ] Set up database and authentication environment variables
-[ ] Implement email/password sign-up
-[ ] Implement email/password sign-in
-[ ] Configure Google and GitHub social providers
-[ ] Build sign-in and sign-up forms with validation
-[ ] Add success, error and logout toast notifications
-[ ] Persist sessions and update Navbar based on auth state
-[ ] Test successful and failed authentication flows
+[x] Configure BetterAuth server and client
+[x] Set up database and authentication environment variables
+[x] Implement email/password sign-up
+[x] Implement email/password sign-in
+[x] Configure Google and GitHub social providers
+[x] Build sign-in and sign-up forms with validation
+[x] Add success, error and logout toast notifications
+[x] Persist sessions and update Navbar based on auth state
+[x] Test successful and failed authentication flows
 
 Phase 7 — Protected Product Details
-[ ] Implement protected product detail route
-[ ] Redirect unauthenticated users to sign-in
-[ ] Show toast notification for protected-route redirects
-[ ] Display product emoji, title, description, category and unit
-[ ] Calculate and display minimum, maximum and average prices
-[ ] Build বাজারভিত্তিক আজকের দাম section
-[ ] Handle unknown product slugs with a friendly 404 page
-[ ] Verify product detail data against the API response
+[x] Implement protected product detail route
+[x] Redirect unauthenticated users to sign-in
+[x] Show toast notification for protected-route redirects
+[x] Display product emoji, title, description, category and unit
+[x] Calculate and display minimum, maximum and average prices
+[x] Build বাজারভিত্তিক আজকের দাম section
+[x] Handle unknown product slugs with a friendly 404 page
+[x] Verify product detail data against the API response
 
 Phase 8 — Profile & Challenge
-[ ] Create My Profile page
-[ ] Add Update Information action
-[ ] Create profile update route and Name input
-[ ] Update user name through BetterAuth updateUser API
-[ ] Show validation and success/error notifications
-[ ] Complete Bengali numeric price sorting tests
+[x] Create My Profile page
+[x] Add Update Information action
+[x] Create profile update route and Name input
+[x] Update user name through BetterAuth updateUser API
+[x] Show validation and success/error notifications
+[x] Complete Bengali numeric price sorting tests
 
 Phase 9 — QA & Accessibility
 [ ] Create a custom 404 page for unknown routes

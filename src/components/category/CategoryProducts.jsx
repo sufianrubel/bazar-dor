@@ -3,18 +3,12 @@
 import { useMemo, useState } from "react";
 import { productSortOptions } from "@/constants/product-sort-options";
 import ProductCard from "@/components/product/ProductCard";
-import { parseBengaliNumber } from "@/lib/format-price";
+import { sortProductsByPrice } from "@/lib/sort-products";
 
 export default function CategoryProducts({ products }) {
   const [sortOrder, setSortOrder] = useState("default");
   const sortedProducts = useMemo(() => {
-    if (sortOrder === "default") return products;
-
-    return [...products].sort((first, second) =>
-      sortOrder === "price-ascending"
-        ? parseBengaliNumber(first.price) - parseBengaliNumber(second.price)
-        : parseBengaliNumber(second.price) - parseBengaliNumber(first.price),
-    );
+    return sortProductsByPrice(products, sortOrder);
   }, [products, sortOrder]);
 
   return (

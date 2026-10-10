@@ -16,7 +16,7 @@ export default function ProductDetailHeader({ product }) {
   return (
     <section
       aria-labelledby="product-title"
-      className="flex min-h-24 items-center justify-between gap-4 rounded-xl border border-[#e1e9e2] bg-white/80 p-3 sm:min-h-[94px] sm:rounded-2xl sm:p-4"
+      className="flex min-h-24 items-center justify-between gap-4 rounded-xl border border-[#e1e9e2] bg-white/80 p-3 sm:min-h-23.5 sm:rounded-2xl sm:p-4"
     >
       <div className="flex min-w-0 items-center gap-3">
         <span
@@ -33,11 +33,9 @@ export default function ProductDetailHeader({ product }) {
             {product.name}
           </h1>
           <p className="text-sm text-[#748077]">
-            {product.unit || "প্রতি কেজি"} · {product.category}
+            {product.category} · {unitLabel}
           </p>
-          <p className="mt-0.5 hidden text-xs text-[#59665d] sm:block">
-            বাজারভেদে দামের কিছুটা পার্থক্য হতে পারে।
-          </p>
+          <p className="mt-0.5 text-xs text-[#59665d]">{product.description}</p>
         </div>
       </div>
       <div className="shrink-0 rounded-xl bg-[#f0f5f1] px-3 py-2 text-center sm:px-4">

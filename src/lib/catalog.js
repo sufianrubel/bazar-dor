@@ -87,6 +87,7 @@ function normalizeProduct(product) {
   }
 
   const productId = requireApiSegment(product.id, "product id");
+  const name = requireText(product.nameBn, "product name");
 
   return {
     id: productId,
@@ -94,7 +95,12 @@ function normalizeProduct(product) {
       requireText(product.slug, "product slug"),
       "product slug",
     ),
-    name: requireText(product.nameBn, "product name"),
+    name,
+    description:
+      (typeof product.descriptionBn === "string" &&
+        product.descriptionBn.trim()) ||
+      (typeof product.description === "string" && product.description.trim()) ||
+      `${name} এর আজকের বাজারদর ও বাজারভিত্তিক দাম তুলনা করুন।`,
     emoji: requireText(product.image ?? product.categoryIcon, "product image"),
     category: category.name,
     categorySlug: category.slug,

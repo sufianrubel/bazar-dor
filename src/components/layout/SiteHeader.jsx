@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { headers } from "next/headers";
 import { ApiError } from "@/lib/api-client";
+import { auth } from "@/lib/auth";
 import { getCategories } from "@/lib/catalog";
 import { siteConfig } from "@/constants/site";
 import { formatCurrentDate } from "@/lib/format-date";
@@ -13,6 +15,7 @@ export default async function SiteHeader({
 }) {
   let categories = [];
   let categoriesUnavailable = false;
+  const session = await auth.api.getSession({ headers: await headers() });
 
   try {
     categories = await getCategories();
@@ -47,7 +50,9 @@ export default async function SiteHeader({
             </span>
           </span>
         </Link>
-        {activePage === "signin" || activePage === "signup" ? (
+        {session?.user ? (
+          <ProfileMenu user={session.user} />
+        ) : (
           <nav aria-label="অ্যাকাউন্ট" className="flex items-center gap-2">
             <Link
               href="/signin"
@@ -66,10 +71,8 @@ export default async function SiteHeader({
               className="rounded-lg bg-[#078a45] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#06763b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#078a45]"
             >
               সাইন আপ
-            </Link>
-          </nav>
-        ) : (
-          <ProfileMenu />
+              </Link>
+            </nav>
         )}
       </div>
       <nav aria-label="পণ্যের বিভাগ" className="border-t border-[#edf1ed]">
