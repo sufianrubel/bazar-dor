@@ -1,6 +1,7 @@
 import { Geist, Hind_Siliguri } from "next/font/google";
 import "./globals.css";
-import ToastProvider from "./toast-provider";
+import ToastProvider from "@/components/providers/ToastProvider";
+import { siteConfig } from "@/constants/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,11 +14,7 @@ const hindSiliguri = Hind_Siliguri({
   weight: ["400", "500", "600", "700"],
 });
 
-export const metadata = {
-  title: "বাজার দর | আজকের নিত্যপণ্যের দাম",
-  description:
-    "বাংলাদেশের নিত্যপ্রয়োজনীয় পণ্যের আজকের দাম, বাজারদর এবং দামের ওঠানামা এক জায়গায় দেখুন।",
-};
+export const metadata = siteConfig.metadata;
 
 export default function RootLayout({ children }) {
   return (
@@ -25,7 +22,7 @@ export default function RootLayout({ children }) {
       lang="bn"
       className={`${geistSans.variable} ${hindSiliguri.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col" data-scroll-behavior="smooth">
         {children}
         <ToastProvider />
       </body>

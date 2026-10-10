@@ -1,119 +1,41 @@
-export const products = [
-  {
-    name: "স্বর্ণমাছি চাল",
-    emoji: "🍚",
-    category: "চাল",
-    price: 148,
-    change: 2.1,
-  },
-  {
-    name: "মিনিকেট চাল",
-    emoji: "🍚",
-    category: "চাল",
-    price: 91,
-    change: -1.2,
-  },
-  { name: "নাজির চাল", emoji: "🍚", category: "চাল", price: 78, change: 0 },
-  {
-    name: "বাসমতি সুগন্ধি চাল",
-    emoji: "🍚",
-    category: "চাল",
-    price: 66,
-    change: 0.6,
-  },
-  { name: "মসুর ডাল", emoji: "🫘", category: "ডাল", price: 142, change: 2.3 },
-  { name: "মুগ ডাল", emoji: "🫘", category: "ডাল", price: 163, change: 0 },
-  { name: "ছোলা", emoji: "🫘", category: "ডাল", price: 120, change: -2.8 },
-  {
-    name: "আমন চাল (মোটা)",
-    emoji: "🍚",
-    category: "চাল",
-    price: 56,
-    change: 1.6,
-  },
-  {
-    name: "সয়াবিন তেল",
-    emoji: "🫙",
-    category: "তেল",
-    price: 192,
-    change: 1.5,
-  },
-  { name: "পাম তেল", emoji: "🫙", category: "তেল", price: 168, change: -1.6 },
-  {
-    name: "ঘানি ভাঙা সরিষার তেল",
-    emoji: "🫙",
-    category: "তেল",
-    price: 256,
-    change: 1.8,
-  },
-  { name: "আলু", emoji: "🥔", category: "সবজি", price: 30, change: -3.6 },
-  { name: "পেঁয়াজ", emoji: "🧅", category: "সবজি", price: 54, change: 1.3 },
-  { name: "কাঁচামরিচ", emoji: "🌶️", category: "সবজি", price: 92, change: -4.8 },
-  { name: "বেগুন", emoji: "🍆", category: "সবজি", price: 88, change: 4.2 },
-  { name: "টমেটো", emoji: "🍅", category: "সবজি", price: 38, change: 0 },
-  { name: "রসুন", emoji: "🧄", category: "সবজি", price: 125, change: -2.4 },
-  { name: "আদা", emoji: "🫚", category: "সবজি", price: 85, change: 3.9 },
-  {
-    name: "ময়দা (৫০০ গ্রাম)",
-    emoji: "🌾",
-    category: "নিত্যপণ্য",
-    price: 45,
-    change: 0.5,
-  },
-  { name: "চিনি", emoji: "🧂", category: "নিত্যপণ্য", price: 158, change: 1.9 },
-  { name: "লবণ", emoji: "🧂", category: "নিত্যপণ্য", price: 42, change: 0 },
-  {
-    name: "ডিম",
-    emoji: "🥚",
-    category: "ডিম ও দুধ",
-    price: 158,
-    change: 1.5,
-    unit: "প্রতি ডজন",
-  },
-  {
-    name: "দুধ",
-    emoji: "🥛",
-    category: "ডিম ও দুধ",
-    price: 92,
-    change: 1.1,
-    unit: "প্রতি লিটার",
-  },
-  { name: "রুই মাছ", emoji: "🐟", category: "মাছ", price: 480, change: 0.8 },
-  { name: "কাতলা মাছ", emoji: "🐠", category: "মাছ", price: 430, change: -0.8 },
-  { name: "ইলিশ মাছ", emoji: "🐟", category: "মাছ", price: 1850, change: 0.4 },
-  { name: "তেলাপিয়া", emoji: "🐟", category: "মাছ", price: 160, change: 0 },
-  {
-    name: "ব্রয়লার মুরগি",
-    emoji: "🍗",
-    category: "মাংস",
-    price: 225,
-    change: -0.6,
-  },
-  {
-    name: "গরুর মাংস",
-    emoji: "🥩",
-    category: "মাংস",
-    price: 790,
-    change: -1.3,
-  },
-  { name: "খাসির মাংস", emoji: "🍖", category: "মাংস", price: 1290, change: 0 },
-];
+import { categories } from "@/data/categories";
+import { products } from "@/data/products";
 
-export const categories = [
-  { name: "চাল", emoji: "🍚", slug: "rice", productCategory: "চাল" },
-  { name: "ডাল", emoji: "🫘", slug: "lentils", productCategory: "ডাল" },
-  { name: "তেল", emoji: "🫙", slug: "oil", productCategory: "তেল" },
-  { name: "সবজি", emoji: "🥬", slug: "vegetables", productCategory: "সবজি" },
-  { name: "মাছ", emoji: "🐟", slug: "fish", productCategory: "মাছ" },
-  { name: "মাংস", emoji: "🍗", slug: "meat", productCategory: "মাংস" },
-  {
-    name: "ডিম-দুধ",
-    emoji: "🥛",
-    slug: "eggs-dairy",
-    productCategory: "ডিম ও দুধ",
-  },
-  { name: "মসলা", emoji: "🌶️", slug: "spices", productCategory: "মসলা" },
-];
+export function getCategoryBySlug(slug) {
+  return categories.find((category) => category.slug === slug);
+}
 
-export const formatPrice = (price) =>
-  new Intl.NumberFormat("bn-BD", { maximumFractionDigits: 0 }).format(price);
+export function getCategoryForProduct(product) {
+  return categories.find(
+    (category) => category.productCategory === product.category,
+  );
+}
+
+export function getProductBySlug(slug) {
+  return products.find(
+    (product) =>
+      product.name === slug || encodeURIComponent(product.name) === slug,
+  );
+}
+
+export function getProductsByCategory(category) {
+  return products.filter(
+    (product) => product.category === category.productCategory,
+  );
+}
+
+export function getProductsByPriceChange(direction, limit = 6) {
+  const changePredicate =
+    direction === "rising"
+      ? (change) => change > 0
+      : (change) => change < 0;
+  const order =
+    direction === "rising"
+      ? (first, second) => second.change - first.change
+      : (first, second) => first.change - second.change;
+
+  return products
+    .filter((product) => changePredicate(product.change))
+    .sort(order)
+    .slice(0, limit);
+}
