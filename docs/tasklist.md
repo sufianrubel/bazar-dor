@@ -82,10 +82,11 @@ Phase 9 — QA & Accessibility
 [x] Verify all authentication and protected-route flows
 
 Phase 10 — Git, Deployment & Submission
-[ ] Make at least 8 meaningful Git commits
-[ ] Review code structure and remove unused code
-[ ] Complete README with at least 5 key features
-[ ] Configure production environment variables
+[x] Make at least 8 meaningful Git commits
+[x] Review code structure and remove unused code
+[x] Complete README with at least 5 key features
+[x] Configure non-secret production variables in Wrangler config
+[ ] Add required production secrets in Cloudflare and verify the deployed environment
 [ ] Deploy to Vercel or another supported platform
 [ ] Test live URLs, OAuth callbacks and page refreshes
 [ ] Record live deployment URL

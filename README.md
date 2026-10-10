@@ -116,11 +116,40 @@ bazar-dor/
 
 ## 🌐 Deployment
 
-Deploy the application using a Next.js-compatible hosting platform, such as [Vercel](https://vercel.com/).
+This repository includes an OpenNext adapter and Wrangler configuration for
+[Cloudflare Workers](https://developers.cloudflare.com/workers/). In the
+Cloudflare Worker settings, add the following production variables before
+deploying:
+
+| Variable | Type | Notes |
+| --- | --- | --- |
+| `NEXT_PUBLIC_API_URL` | Plain text | Configured in `wrangler.jsonc` as `https://api.api-store.workers.dev/api/bazardor` |
+| `BETTER_AUTH_URL` | Plain text | Configured in `wrangler.jsonc` as `https://bazar-dor.rubel-nstu27.workers.dev` |
+| `MONGODB_DB` | Plain text | Configured in `wrangler.jsonc` as `bazar-dor` |
+| `BETTER_AUTH_SECRET` | Secret | Generate a strong, unique value with `openssl rand -base64 32` |
+| `MONGODB_URI` | Secret | Connection string for a production MongoDB replica set |
+| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Plain text / secret | Optional; set both to enable Google sign-in |
+| `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` | Plain text / secret | Optional; set both to enable GitHub sign-in |
+
+Configure enabled OAuth providers with the production origin's BetterAuth
+callback URLs. Add required and optional secrets through the Cloudflare
+dashboard or `npx wrangler secret put <NAME>`; do not add credentials to
+Wrangler config, `.env.example`, or source control. If using Cloudflare's build
+pipeline, also provide `NEXT_PUBLIC_API_URL` as a build environment variable
+because Next.js embeds public variables during build.
+
+Deploy from a configured environment with:
+
+```bash
+npm run deploy
+```
+
+Vercel is another possible Next.js host, but this repository's checked-in
+deployment configuration targets Cloudflare Workers.
 
 Before deployment:
 
-1. Configure the required environment variables.
+1. Configure production variables and secrets in the hosting provider.
 2. Run the production build.
 3. Verify authentication and protected routes.
 4. Test product, category, and dynamic detail routes.

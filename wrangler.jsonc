@@ -7,6 +7,11 @@
 		"nodejs_compat",
 		"global_fetch_strictly_public"
 	],
+	"vars": {
+		"NEXT_PUBLIC_API_URL": "https://api.api-store.workers.dev/api/bazardor",
+		"BETTER_AUTH_URL": "https://bazar-dor.rubel-nstu27.workers.dev",
+		"MONGODB_DB": "bazar-dor"
+	},
 	"assets": {
 		"directory": ".open-next/assets",
 		"binding": "ASSETS"
