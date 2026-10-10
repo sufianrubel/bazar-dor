@@ -18,7 +18,7 @@ export const products = [
     name: "বাসমতি সুগন্ধি চাল",
     emoji: "🍚",
     category: "চাল",
-    price: 61,
+    price: 66,
     change: 0.6,
   },
   { name: "মসুর ডাল", emoji: "🫘", category: "ডাল", price: 142, change: 2.3 },

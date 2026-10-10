@@ -6,7 +6,7 @@ export default function PriceTicker() {
   return (
     <div
       aria-label="বাজারদরের হালনাগাদ"
-      className="overflow-hidden border-y border-[#e3eae4] bg-white/80 py-2.5"
+      className="overflow-hidden border-y border-[#e3eae4] bg-white/80 py-1.5"
     >
       <div className="price-ticker flex w-max items-center">
         {[0, 1].map((copy) => (

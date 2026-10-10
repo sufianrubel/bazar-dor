@@ -58,10 +58,10 @@ export default function Home() {
       <SiteHeader />
       <PriceTicker />
 
-      <main className="mx-auto max-w-6xl space-y-8 px-4 py-5 sm:px-6 sm:py-7 lg:px-8">
-        <section className="relative flex min-h-52 items-center justify-between overflow-hidden rounded-[22px] border border-[#e0e9e1] bg-white/75 px-5 py-6 sm:min-h-56 sm:px-8 lg:px-10">
+      <main className="mx-auto max-w-5xl space-y-8 px-4 py-5 sm:px-6">
+        <section className="relative flex min-h-60 items-start justify-between overflow-hidden rounded-[22px] border border-[#e0e9e1] bg-white/75 px-5 py-2 sm:px-8 lg:px-10">
           <div className="relative z-10 max-w-2xl">
-            <span className="inline-flex rounded-full bg-[#e6f4e9] px-3 py-1 text-sm font-semibold text-[#078a45]">
+            <span className="inline-flex rounded-full bg-[#e6f4e9] px-3 py-0.5 text-sm font-semibold text-[#078a45]">
               শনিবার, ১০ অক্টোবর, ২০২৬
             </span>
             <h1 className="mt-3 text-2xl font-extrabold leading-tight tracking-tight text-[#202b23] sm:text-3xl lg:text-4xl">
