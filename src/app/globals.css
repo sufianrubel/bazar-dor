@@ -4,18 +4,12 @@
 :root {
   --background: #f0f5f1;
   --foreground: #202b23;
-  --surface: #ffffff;
-  --primary: #078a45;
-  --muted: #6b786f;
-  --border: #e1e9e2;
-  --success: #159447;
-  --danger: #dc4545;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-hind-siliguri), var(--font-geist-sans), sans-serif;
 }
 
 * {
@@ -30,7 +24,7 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, "Noto Sans Bengali", sans-serif;
+  font-family: var(--font-hind-siliguri), var(--font-geist-sans), sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -49,4 +43,30 @@ a {
 ::selection {
   background: #c9ecd7;
   color: #174c2e;
+}
+
+@keyframes ticker-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.price-ticker {
+  animation: ticker-scroll 52s linear infinite;
+}
+
+.price-ticker:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+
+  .price-ticker {
+    animation: none;
+  }
 }
