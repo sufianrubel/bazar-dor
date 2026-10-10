@@ -3,3 +3,5 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  NEXT_PUBLIC_API_URL = "https://api.api-store.workers.dev/api/bazardor"
+  API_FALLBACK_URL = "https://api.abcz.workers.dev/api/bazardor"

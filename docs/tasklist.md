@@ -11,6 +11,8 @@ Phase 2 — API & Data Layer
 [x] Fetch all products from the API
 [x] Fetch categories and category-specific products
 [x] Fetch individual product details
+[x] Configure primary and standby API URLs for local and Netlify
+    environments (standby is not automatically requested)
 [x] Handle loading, empty, invalid and API error states
 [x] Create reusable Bengali price, unit and percentage formatters
 

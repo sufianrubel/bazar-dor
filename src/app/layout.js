@@ -20,9 +20,10 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="bn"
+      data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${hindSiliguri.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col" data-scroll-behavior="smooth">
+      <body className="min-h-full flex flex-col">
         {children}
         <ToastProvider />
       </body>

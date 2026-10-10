@@ -72,9 +72,13 @@ npm run dev
 Open http://localhost:3000 in your browser.
 
 The catalog uses `GET /products`, `GET /products?category=<slug>`,
-`GET /products/<id>`, and `GET /categories` relative to `NEXT_PUBLIC_API_URL`.
-API failures are shown in the page UI; catalog responses are revalidated every
-five minutes.
+`GET /products/<id>`, `GET /categories`, and `GET /categories/<slug>` relative
+to `NEXT_PUBLIC_API_URL`.
+Configure both `NEXT_PUBLIC_API_URL` and `API_FALLBACK_URL` in Netlify and local
+environment settings. Requests use `NEXT_PUBLIC_API_URL` only; the fallback URL
+is provided for manually switching the primary URL if needed. API failures are
+shown in the page UI; successful catalog responses are revalidated every five
+minutes.
 
 ## 📁 Project Structure
 
@@ -128,6 +132,7 @@ context:
 | Variable | Value |
 | --- | --- |
 | `NEXT_PUBLIC_API_URL` | `https://api.api-store.workers.dev/api/bazardor` |
+| `API_FALLBACK_URL` | `https://api.abcz.workers.dev/api/bazardor` (standby; not automatically requested) |
 | `BETTER_AUTH_URL` | The same deployed site origin |
 | `MONGODB_DB` | `bazar-dor` |
 | `BETTER_AUTH_SECRET` | A strong unique secret; generate with `openssl rand -base64 32` |
