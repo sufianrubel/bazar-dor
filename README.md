@@ -6,15 +6,12 @@ Bazar Dor is a modern, responsive web application that helps users explore daily
 
 ## ✨ Features
 
-* **Price Tracking** — Explore prices of daily essential products.
-* **Price Trends** — Discover products with increasing or decreasing prices.
-* **Category Filtering** — Browse products by category.
-* **Product Details** — View price summaries and market-wise pricing information.
-* **Authentication** — Secure sign-in and registration with BetterAuth.
-* **Protected Routes** — Restrict access to authenticated users.
-* **Responsive Design** — Optimized for mobile, tablet, and desktop.
-* **Interactive UI** — Loading skeletons, notifications, and intuitive navigation.
-* **Profile Management** — Update user profile information.
+* **API-backed catalog** — Browse products and categories from the configured API.
+* **Price trends** — Discover products with increasing or decreasing prices.
+* **Product details** — View API market ranges and product price summaries.
+* **Responsive design** — Layouts adapt to mobile, tablet, and desktop.
+* **Account UI** — Sign-in, sign-up, and profile screens are in place. Authentication actions remain placeholders while BetterAuth integration is completed.
+* **Notifications** — Show feedback for unavailable actions and form validation.
 
 ## 🛠️ Tech Stack
 
@@ -27,7 +24,6 @@ Bazar Dor is a modern, responsive web application that helps users explore daily
 | [React Icons](https://react-icons.github.io/react-icons/) | Icons                          |
 | [BetterAuth](https://www.better-auth.com/)                | Authentication                 |
 | [React Hot Toast](https://react-hot-toast.com/)           | Notifications                  |
-| [React Hook Form](https://react-hook-form.com/)           | Form management                |
 
 ## 🚀 Getting Started
 
@@ -52,15 +48,13 @@ npm install
 
 ### 3. Configure Environment Variables
 
-Create a `.env.local` file in the project root:
+Copy the environment template to `.env.local` in the project root:
 
-```env
-NEXT_PUBLIC_API_URL=https://api.api-store.workers.dev/api/bazardor
+```bash
+cp .env.example .env.local
 ```
 
-If the API provider supplies a different base URL, replace the value accordingly.
-
-Configure any additional BetterAuth variables required by your existing authentication setup. Keep secret values private and never commit them.
+`NEXT_PUBLIC_API_URL` is the configured API base URL. Replace it if your API provider supplies a different URL. BetterAuth and OAuth settings in the template are placeholders for the authentication integration phase. Keep secret values private and never commit `.env.local`.
 
 ### 4. Start the Development Server
 
@@ -70,23 +64,10 @@ npm run dev
 
 Open http://localhost:3000 in your browser.
 
-## 📡 API Reference
-
-Base URL:
-
-```text
-https://api.api-store.workers.dev/api/bazardor
-```
-
-| Endpoint                      | Description                   |
-| ----------------------------- | ----------------------------- |
-| `GET /products`               | Retrieve products             |
-| `GET /products?category=chal` | Retrieve products by category |
-| `GET /products/1`             | Retrieve a product by ID      |
-| `GET /categories`             | Retrieve available categories |
-| `GET /categories/chal`        | Retrieve a category by slug   |
-
-*API availability and response structures depend on the external API provider.*
+The catalog uses `GET /products`, `GET /products?category=<slug>`,
+`GET /products/<id>`, and `GET /categories` relative to `NEXT_PUBLIC_API_URL`.
+API failures are shown in the page UI; catalog responses are revalidated every
+five minutes.
 
 ## 📁 Project Structure
 
@@ -94,24 +75,21 @@ https://api.api-store.workers.dev/api/bazardor
 bazar-dor/
 ├── public/                 # Static assets
 ├── src/
-│   ├── app/                # App Router pages and layouts
-│   │   ├── category/[slug]/
-│   │   ├── product/[slug]/
-│   │   ├── signin/
-│   │   ├── signup/
+│   ├── app/                # App Router routes and root layout
+│   │   ├── (auth)/         # Sign-in and sign-up routes
+│   │   ├── (main)/         # Home, category, and product routes
 │   │   ├── profile/
-│   │   ├── layout.js
-│   │   ├── page.js
 │   │   └── globals.css
-│   ├── components/         # Reusable UI components
-│   └── lib/                # API and authentication utilities
+│   ├── components/         # Feature-based reusable UI
+│   ├── constants/          # Shared configuration and options
+│   ├── data/               # Product, category, and mock content
+│   └── lib/                # Catalog, formatting, and auth utilities
+├── .env.example            # Environment variable template
 ├── .env.local              # Local environment variables
-├── AGENTS.md               # AI coding guidelines
+├── AGENTS.md               # Project coding guidelines
 ├── package.json
 └── README.md
 ```
-
-*The structure above is illustrative; keep it aligned with the actual repository.*
 
 ## 🧪 Available Scripts
 

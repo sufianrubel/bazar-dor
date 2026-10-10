@@ -1,7 +1,40 @@
-import { tickerProducts } from "@/data/market-prices";
-import { formatPrice } from "@/lib/format-price";
+import { ApiError } from "@/lib/api-client";
+import { getProducts } from "@/lib/catalog";
+import {
+  formatPercentage,
+  formatPrice,
+  formatUnit,
+} from "@/lib/format-price";
 
-export default function PriceTicker() {
+export default async function PriceTicker() {
+  let tickerProducts;
+
+  try {
+    tickerProducts = (await getProducts()).slice(0, 12);
+  } catch (error) {
+    if (!(error instanceof ApiError)) throw error;
+
+    return (
+      <div
+        role="status"
+        className="border-y border-[#e3eae4] bg-white/80 px-4 py-2 text-center text-sm text-[#748077]"
+      >
+        বাজারদরের হালনাগাদ পাওয়া যাচ্ছে না।
+      </div>
+    );
+  }
+
+  if (tickerProducts.length === 0) {
+    return (
+      <div
+        role="status"
+        className="border-y border-[#e3eae4] bg-white/80 px-4 py-2 text-center text-sm text-[#748077]"
+      >
+        এখনো কোনো বাজারদর পাওয়া যায়নি।
+      </div>
+    );
+  }
+
   return (
     <div
       aria-label="বাজারদরের হালনাগাদ"
@@ -23,7 +56,7 @@ export default function PriceTicker() {
                 <span className="font-semibold">{product.name}</span>
                 <span className="whitespace-nowrap text-[#69766d]">
                   {formatPrice(product.price)} টাকা/
-                  {product.unit === "প্রতি ডজন" ? "ডজন" : "কেজি"}
+                  {formatUnit(product.unit, { withPrefix: false })}
                 </span>
                 <span
                   className={`whitespace-nowrap font-bold ${
@@ -35,7 +68,7 @@ export default function PriceTicker() {
                   }`}
                 >
                   {product.change > 0 ? "▲" : product.change < 0 ? "▼" : "—"}{" "}
-                  {Math.abs(product.change).toLocaleString("bn-BD")}%
+                  {formatPercentage(Math.abs(product.change))}%
                 </span>
               </span>
             ))}

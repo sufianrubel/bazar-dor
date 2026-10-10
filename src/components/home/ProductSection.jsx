@@ -28,11 +28,17 @@ export default function ProductSection({
           )}
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {products.map((product) => (
-          <ProductCard key={product.name} product={product} />
-        ))}
-      </div>
+      {products.length > 0 ? (
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {products.map((product) => (
+            <ProductCard key={product.slug} product={product} />
+          ))}
+        </div>
+      ) : (
+        <p className="rounded-xl border border-dashed border-[#d9e4db] bg-white/60 px-4 py-6 text-center text-sm text-[#748077]">
+          এই মুহূর্তে কোনো পণ্যের তথ্য পাওয়া যায়নি।
+        </p>
+      )}
     </section>
   );
 }

@@ -1,14 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
-import { categories } from "@/data/categories";
+import { ApiError } from "@/lib/api-client";
+import { getCategories } from "@/lib/catalog";
 import { siteConfig } from "@/constants/site";
 import ProfileMenu from "./ProfileMenu";
 
-export default function SiteHeader({
+export default async function SiteHeader({
   activeCategory,
   activePage,
   maxWidth = "max-w-6xl",
 }) {
+  let categories = [];
+  let categoriesUnavailable = false;
+
+  try {
+    categories = await getCategories();
+  } catch (error) {
+    if (!(error instanceof ApiError)) throw error;
+    categoriesUnavailable = true;
+  }
+
   return (
     <header className="border-b border-[#e6ece7] bg-white/75">
       <div
@@ -64,23 +75,29 @@ export default function SiteHeader({
         <div
           className={`mx-auto flex ${maxWidth} gap-1 overflow-x-auto px-4 py-1 sm:justify-center sm:px-6`}
         >
-          {categories.map((category) => (
-            <Link
-              key={category.slug}
-              href={`/category/${category.slug}`}
-              aria-current={
-                activeCategory === category.slug ? "page" : undefined
-              }
-              className={`inline-flex min-h-8 shrink-0 items-center gap-1.5 px-3 py-1.5 text-sm font-medium transition focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#078a45] ${
-                activeCategory === category.slug
-                  ? "rounded-md bg-[#078a45] text-white"
-                  : "rounded-full text-[#58645c] hover:bg-[#e8f3eb] hover:text-[#08743d]"
-              }`}
-            >
-              <span aria-hidden="true">{category.emoji}</span>
-              {category.name}
-            </Link>
-          ))}
+          {categoriesUnavailable ? (
+            <p role="status" className="px-3 py-1.5 text-sm text-[#748077]">
+              বিভাগের তথ্য পাওয়া যাচ্ছে না।
+            </p>
+          ) : (
+            categories.map((category) => (
+              <Link
+                key={category.slug}
+                href={`/category/${category.slug}`}
+                aria-current={
+                  activeCategory === category.slug ? "page" : undefined
+                }
+                className={`inline-flex min-h-8 shrink-0 items-center gap-1.5 px-3 py-1.5 text-sm font-medium transition focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#078a45] ${
+                  activeCategory === category.slug
+                    ? "rounded-md bg-[#078a45] text-white"
+                    : "rounded-full text-[#58645c] hover:bg-[#e8f3eb] hover:text-[#08743d]"
+                }`}
+              >
+                <span aria-hidden="true">{category.emoji}</span>
+                {category.name}
+              </Link>
+            ))
+          )}
         </div>
       </nav>
     </header>

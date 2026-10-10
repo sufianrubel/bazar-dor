@@ -1,6 +1,14 @@
 import { formatPrice } from "@/lib/format-price";
 
 export default function MarketPriceTable({ history, productName }) {
+  if (history.length === 0) {
+    return (
+      <p className="rounded-xl border border-dashed border-[#d9e4db] px-4 py-8 text-center text-sm text-[#748077]">
+        এই পণ্যের বাজারভিত্তিক দাম এখনো পাওয়া যায়নি।
+      </p>
+    );
+  }
+
   return (
     <div className="overflow-hidden rounded-xl border border-[#e2e9e3]">
       <div className="overflow-x-auto">
@@ -14,7 +22,7 @@ export default function MarketPriceTable({ history, productName }) {
                 বাজার
               </th>
               <th scope="col" className="px-3 py-2 font-medium sm:px-4">
-                ধরন
+                বিভাগ
               </th>
               <th scope="col" className="px-3 py-2 text-right font-medium sm:px-4">
                 সর্বনিম্ন
@@ -40,7 +48,7 @@ export default function MarketPriceTable({ history, productName }) {
                   {row.market}
                 </th>
                 <td className="whitespace-nowrap px-3 py-1.5 text-[#68756c] sm:px-4">
-                  {row.variety}
+                  {row.division}
                 </td>
                 <td className="whitespace-nowrap px-3 py-1.5 text-right text-[#344138] sm:px-4">
                   {formatPrice(row.minimum)} টাকা

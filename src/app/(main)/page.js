@@ -1,15 +1,25 @@
+import ApiErrorState from "@/components/shared/ApiErrorState";
 import PriceTicker from "@/components/layout/PriceTicker";
 import SiteFooter from "@/components/layout/SiteFooter";
 import SiteHeader from "@/components/layout/SiteHeader";
 import HomeHero from "@/components/home/HomeHero";
 import ProductSection from "@/components/home/ProductSection";
 import { homePageContent } from "@/data/page-content";
-import { products } from "@/data/products";
+import { ApiError } from "@/lib/api-client";
+import { getProducts, getProductsByPriceChange } from "@/lib/catalog";
 import { formatPrice } from "@/lib/format-price";
-import { getProductsByPriceChange } from "@/lib/catalog";
 
-export default function HomePage() {
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
   const sections = homePageContent.sections;
+  let products = null;
+
+  try {
+    products = await getProducts();
+  } catch (error) {
+    if (!(error instanceof ApiError)) throw error;
+  }
 
   return (
     <div className="min-h-screen bg-[#f0f5f1]">
@@ -20,20 +30,24 @@ export default function HomePage() {
         <HomeHero />
         <ProductSection
           title={sections.rising}
-          products={getProductsByPriceChange("rising")}
+          products={getProductsByPriceChange(products ?? [], "rising")}
           trend="up"
         />
         <ProductSection
           title={sections.falling}
-          products={getProductsByPriceChange("falling")}
+          products={getProductsByPriceChange(products ?? [], "falling")}
           trend="down"
         />
-        <ProductSection
-          id={sections.allProductsId}
-          title={sections.all}
-          subtitle={`${formatPrice(products.length)}টি পণ্যের দাম এখানে রয়েছে`}
-          products={products}
-        />
+        {products ? (
+          <ProductSection
+            id={sections.allProductsId}
+            title={sections.all}
+            subtitle={`${formatPrice(products.length)}টি পণ্যের দাম এখানে রয়েছে`}
+            products={products}
+          />
+        ) : (
+          <ApiErrorState />
+        )}
       </main>
 
       <SiteFooter />

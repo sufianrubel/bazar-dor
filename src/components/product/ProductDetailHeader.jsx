@@ -1,7 +1,11 @@
-import { formatPrice } from "@/lib/format-price";
+import {
+  formatPercentage,
+  formatPrice,
+  formatUnit,
+} from "@/lib/format-price";
 
 export default function ProductDetailHeader({ product }) {
-  const unitLabel = product.unit === "প্রতি ডজন" ? "ডজন" : "কেজি";
+  const unitLabel = formatUnit(product.unit, { withPrefix: false });
   const changeColor =
     product.change > 0
       ? "text-[#df4942]"
@@ -44,7 +48,7 @@ export default function ProductDetailHeader({ product }) {
         <p className="text-xs text-[#748077]">টাকা / {unitLabel}</p>
         <p className={`mt-0.5 text-xs font-bold ${changeColor}`}>
           {product.change > 0 ? "▲" : product.change < 0 ? "▼" : "—"}{" "}
-          {Math.abs(product.change).toLocaleString("bn-BD")}%
+          {formatPercentage(Math.abs(product.change))}%
         </p>
       </div>
     </section>

@@ -1,16 +1,21 @@
 import { Card } from "@heroui/react";
 import Link from "next/link";
 import { FiTrendingDown, FiTrendingUp } from "react-icons/fi";
-import { formatPrice } from "@/lib/format-price";
+import {
+  formatPercentage,
+  formatPrice,
+  formatUnit,
+} from "@/lib/format-price";
 
 function PriceChange({ change }) {
   const isIncrease = change > 0;
   const isDecrease = change < 0;
   const Icon = isIncrease ? FiTrendingUp : FiTrendingDown;
+  const formattedChange = formatPercentage(Math.abs(change));
   const label = isIncrease
-    ? `বেড়েছে ${Math.abs(change).toLocaleString("bn-BD")}%`
+    ? `বেড়েছে ${formattedChange}%`
     : isDecrease
-      ? `কমেছে ${Math.abs(change).toLocaleString("bn-BD")}%`
+      ? `কমেছে ${formattedChange}%`
       : "কোনো পরিবর্তন নেই";
 
   return (
@@ -31,7 +36,7 @@ function PriceChange({ change }) {
       ) : (
         <span aria-hidden="true">—</span>
       )}
-      {Math.abs(change).toLocaleString("bn-BD")}%
+      {formattedChange}%
     </span>
   );
 }
@@ -39,7 +44,7 @@ function PriceChange({ change }) {
 export default function ProductCard({ product }) {
   return (
     <Link
-      href={`/product/${encodeURIComponent(product.name)}`}
+      href={`/product/${product.slug}`}
       aria-label={`${product.name} — বিস্তারিত দাম দেখুন`}
       className="product-card-link block rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#078a45]"
     >
@@ -56,7 +61,7 @@ export default function ProductCard({ product }) {
               {product.name}
             </h3>
             <p className="text-sm text-[#7b867e]">
-              {product.unit || "প্রতি কেজি"}
+              {formatUnit(product.unit)}
             </p>
           </div>
         </div>
