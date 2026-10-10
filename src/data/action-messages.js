@@ -11,5 +11,6 @@ export const actionMessages = {
   signupSuccess: "অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে",
   signupFailed: "অ্যাকাউন্ট তৈরি করা যায়নি। ইমেইল যাচাই করে আবার চেষ্টা করুন।",
   socialAuthFailed: "সোশ্যাল অ্যাকাউন্ট দিয়ে সাইন ইন করা যায়নি। আবার চেষ্টা করুন।",
+  socialAuthNotConfigured: "এই সোশ্যাল সাইন-ইনটি এখনো কনফিগার করা হয়নি।",
   passwordMismatch: "পাসওয়ার্ড দুটি মিলছে না",
 };

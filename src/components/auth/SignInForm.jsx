@@ -15,6 +15,7 @@ export default function SigninForm({
   socialProviders,
   redirectTo,
   redirectedFromProduct,
+  oauthError,
 }) {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
@@ -152,7 +153,14 @@ export default function SigninForm({
         {isLoading ? "অপেক্ষা করুন..." : "সাইন ইন"}
       </Button>
 
-      <SocialAuthOptions providers={socialProviders} callbackURL={redirectTo} />
+      <SocialAuthOptions
+        providers={socialProviders}
+        callbackURL={redirectTo}
+        errorCallbackURL={`/signin?oauth_error=1${
+          redirectTo === "/" ? "" : `&next=${redirectTo}`
+        }`}
+        oauthError={oauthError}
+      />
 
       <p className="mt-3 text-center text-sm text-[#667269]">
         অ্যাকাউন্ট নেই?{" "}

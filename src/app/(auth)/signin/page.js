@@ -21,6 +21,7 @@ export default async function SigninPage({ searchParams }) {
         socialProviders={enabledSocialProviders}
         redirectTo={redirectTo}
         redirectedFromProduct={query?.redirected === "product"}
+        oauthError={query?.oauth_error === "1"}
       />
     </AuthPageLayout>
   );

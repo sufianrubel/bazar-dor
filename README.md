@@ -59,7 +59,7 @@ cp .env.example .env.local
 * Set `MONGODB_URI` and `MONGODB_DB` to a MongoDB replica set and database (MongoDB Atlas supports the transactions BetterAuth uses). For local development, start MongoDB with `mongod --replSet rs0 --bind_ip localhost`, then initialize it with `mongosh --eval "rs.initiate()"` to match the sample URI.
 * Generate `BETTER_AUTH_SECRET` with `openssl rand -base64 32`.
 * Set `BETTER_AUTH_URL` to the application origin (for example, `http://localhost:3000`).
-* Google and GitHub sign-in are optional. Configure both client ID and secret for each provider to enable its button. Set each provider's callback URL to `<BETTER_AUTH_URL>/api/auth/callback/google` or `<BETTER_AUTH_URL>/api/auth/callback/github`.
+* Google and GitHub sign-in are optional. Configure both client ID and secret for each provider to enable its button. Register `GOOGLE_CALLBACK_URL` or `GITHUB_CALLBACK_URL` from `.env.local` in the corresponding provider console. These are reference values; Better Auth derives each callback from `BETTER_AUTH_URL` and does not read the callback variables.
 
 Keep secret values private and never commit `.env.local`. Authentication uses the Node.js runtime and a MongoDB deployment reachable from the application server.
 

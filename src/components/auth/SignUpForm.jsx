@@ -11,7 +11,7 @@ import SocialAuthOptions from "@/components/auth/SocialAuthOptions";
 import { formInputClassName } from "@/constants/form-styles";
 import { authClient } from "@/lib/auth-client";
 
-export default function SignupForm({ socialProviders }) {
+export default function SignupForm({ socialProviders, oauthError }) {
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -200,7 +200,11 @@ export default function SignupForm({ socialProviders }) {
         {isLoading ? "অপেক্ষা করুন..." : "অ্যাকাউন্ট তৈরি করুন"}
       </Button>
 
-      <SocialAuthOptions providers={socialProviders} />
+      <SocialAuthOptions
+        providers={socialProviders}
+        errorCallbackURL="/signup?oauth_error=1"
+        oauthError={oauthError}
+      />
 
       <p className="mt-3 text-center text-sm text-[#667269]">
         অ্যাকাউন্ট আছে?{" "}
