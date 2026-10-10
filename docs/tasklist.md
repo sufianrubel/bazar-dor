@@ -72,14 +72,14 @@ Phase 8 — Profile & Challenge
 [x] Complete Bengali numeric price sorting tests
 
 Phase 9 — QA & Accessibility
-[ ] Create a custom 404 page for unknown routes
-[ ] Verify page reloads on dynamic routes after deployment
-[ ] Test navbar, ticker, forms and CTA on mobile
-[ ] Check console errors and failed network requests
-[ ] Test loading, empty, error and invalid-route states
-[ ] Verify keyboard navigation, labels and focus states
-[ ] Confirm all displayed prices and changes use Bengali numerals
-[ ] Verify all authentication and protected-route flows
+[x] Create a custom 404 page for unknown routes
+[x] Verify page reloads on dynamic routes after deployment
+[x] Test navbar, ticker, forms and CTA on mobile
+[x] Check console errors and failed network requests
+[x] Test loading, empty, error and invalid-route states
+[x] Verify keyboard navigation, labels and focus states
+[x] Confirm all displayed prices and changes use Bengali numerals
+[x] Verify all authentication and protected-route flows
 
 Phase 10 — Git, Deployment & Submission
 [ ] Make at least 8 meaningful Git commits

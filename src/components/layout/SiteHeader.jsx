@@ -71,8 +71,8 @@ export default async function SiteHeader({
               className="rounded-lg bg-[#078a45] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#06763b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#078a45]"
             >
               সাইন আপ
-              </Link>
-            </nav>
+            </Link>
+          </nav>
         )}
       </div>
       <nav aria-label="পণ্যের বিভাগ" className="border-t border-[#edf1ed]">
