@@ -85,9 +85,8 @@ Phase 10 — Git, Deployment & Submission
 [x] Make at least 8 meaningful Git commits
 [x] Review code structure and remove unused code
 [x] Complete README with at least 5 key features
-[x] Configure non-secret production variables in Wrangler config
-[ ] Add required production secrets in Cloudflare and verify the deployed environment
-[ ] Deploy to Vercel or another supported platform
+[ ] Configure production environment variables in Netlify
+[ ] Deploy to Netlify
 [ ] Test live URLs, OAuth callbacks and page refreshes
 [ ] Record live deployment URL
 [ ] Record GitHub repository URL

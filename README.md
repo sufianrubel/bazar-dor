@@ -116,40 +116,39 @@ bazar-dor/
 
 ## 🌐 Deployment
 
-This repository includes an OpenNext adapter and Wrangler configuration for
-[Cloudflare Workers](https://developers.cloudflare.com/workers/). In the
-Cloudflare Worker settings, add the following production variables before
-deploying:
+Deploy this Next.js App Router project to [Netlify](https://www.netlify.com/).
+The repository's `netlify.toml` configures the build command and Node.js
+version; Netlify's Next.js adapter handles App Router routes and server
+rendering.
 
-| Variable | Type | Notes |
-| --- | --- | --- |
-| `NEXT_PUBLIC_API_URL` | Plain text | Configured in `wrangler.jsonc` as `https://api.api-store.workers.dev/api/bazardor` |
-| `BETTER_AUTH_URL` | Plain text | Configured in `wrangler.jsonc` as `https://bazar-dor.rubel-nstu27.workers.dev` |
-| `MONGODB_DB` | Plain text | Configured in `wrangler.jsonc` as `bazar-dor` |
-| `BETTER_AUTH_SECRET` | Secret | Generate a strong, unique value with `openssl rand -base64 32` |
-| `MONGODB_URI` | Secret | Connection string for a production MongoDB replica set |
-| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Plain text / secret | Optional; set both to enable Google sign-in |
-| `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` | Plain text / secret | Optional; set both to enable GitHub sign-in |
+Connect the Git repository in Netlify, then add these environment variables
+under **Project configuration → Environment variables** for the production
+context:
 
-Configure enabled OAuth providers with the production origin's BetterAuth
-callback URLs. Add required and optional secrets through the Cloudflare
-dashboard or `npx wrangler secret put <NAME>`; do not add credentials to
-Wrangler config, `.env.example`, or source control. If using Cloudflare's build
-pipeline, also provide `NEXT_PUBLIC_API_URL` as a build environment variable
-because Next.js embeds public variables during build.
+| Variable | Value |
+| --- | --- |
+| `NEXT_PUBLIC_API_URL` | `https://api.api-store.workers.dev/api/bazardor` |
+| `BETTER_AUTH_URL` | The same deployed site origin |
+| `MONGODB_DB` | `bazar-dor` |
+| `BETTER_AUTH_SECRET` | A strong unique secret; generate with `openssl rand -base64 32` |
+| `MONGODB_URI` | Connection string for a production MongoDB replica set |
+| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Optional; set both to enable Google sign-in |
+| `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` | Optional; set both to enable GitHub sign-in |
 
-Deploy from a configured environment with:
+Use Netlify's sensitive-value option for credentials and secrets. Do not commit
+production values to the repository. Configure enabled OAuth providers with
+the deployed origin's BetterAuth callback URLs, then redeploy after setting
+variables because `NEXT_PUBLIC_*` values are embedded during the build.
+
+Netlify deploys on pushes to the connected branch. To build locally:
 
 ```bash
-npm run deploy
+npm run build
 ```
-
-Vercel is another possible Next.js host, but this repository's checked-in
-deployment configuration targets Cloudflare Workers.
 
 Before deployment:
 
-1. Configure production variables and secrets in the hosting provider.
+1. Configure production variables and secrets in Netlify.
 2. Run the production build.
 3. Verify authentication and protected routes.
 4. Test product, category, and dynamic detail routes.

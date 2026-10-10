@@ -103,7 +103,7 @@ Email Verification বা Forgot Password এখন Implement করার দ�
 🚀 Deployment
 Project অবশ্যই Deploy করবে।
 
-Vercel, Netlify, Cloudflare Pages অথবা অন্য কোনো suitable platform ব্যবহার করতে পারো।
+Netlify অথবা অন্য কোনো suitable platform ব্যবহার করতে পারো।
 
 
 
@@ -129,4 +129,3 @@ GitHub Repository Link
 
 
 হ্যাপি Coding। ❤️
-

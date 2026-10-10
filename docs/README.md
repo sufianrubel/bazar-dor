@@ -156,7 +156,7 @@ Endpoints:
 - Add a 404 Page for any unknown/invalid route (e.g. `/category/invalid`, `/product/unknown` → friendly  404 + “হোম পেজে ফিরে যান”)
 - Show a loading animation ( `skeleton`) while the product data is being fetched on the Home / Category page
 - Show a relevant toast notification for auth + protected-route redirects (use `react-hot-toast` / `data-rht-toaster`).
-- Make sure reloading any page after deployment does not cause an error (dynamic `[slug]` routes must work on Vercel — no hard 404 on refresh)
+- Make sure reloading any page after deployment does not cause an error (dynamic `[slug]` routes must work on Netlify — no hard 404 on refresh)
 
 ---
 
@@ -190,7 +190,7 @@ Technology	Purpose
 - BetterAuth
 
 ### 🚀 Deployment
-Deploy your project on Vercel, Netlify, Cloudflare Pages, or anywhere else before submitting.
+Deploy your project on Netlify before submitting.
 
 ## 📬 Submission
 Fill in both links before submitting:
