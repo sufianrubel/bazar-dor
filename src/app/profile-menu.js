@@ -37,8 +37,8 @@ export default function ProfileMenu() {
         >
           <Dropdown.Item
             id="profile"
+            href="/profile"
             className="flex min-h-11 items-center gap-2 rounded-lg px-3 text-sm text-[#303d34] outline-none transition hover:bg-[#eef5f0] focus:bg-[#eef5f0]"
-            onAction={() => toast("প্রোফাইল পৃষ্ঠা এখনো উপলভ্য নয়")}
           >
             <FiUser className="size-4 text-[#708077]" aria-hidden="true" />
             আমার প্রোফাইল
