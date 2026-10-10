@@ -1,3 +1,33 @@
+export function parseBengaliNumber(value) {
+  if (typeof value === "number") {
+    if (Number.isFinite(value)) return value;
+    throw new TypeError("Numeric value must be finite.");
+  }
+
+  if (typeof value !== "string" || value.trim() === "") {
+    throw new TypeError("Numeric value must be a number or non-empty string.");
+  }
+
+  const normalized = value
+    .trim()
+    .replace(/[০-৯]/g, (digit) =>
+      String(digit.charCodeAt(0) - "০".charCodeAt(0)),
+    )
+    .replace(/[,\u066c]/g, "");
+
+  if (!/^-?\d+(\.\d+)?$/.test(normalized)) {
+    throw new TypeError("Numeric value contains unsupported characters.");
+  }
+
+  const number = Number(normalized);
+
+  if (!Number.isFinite(number)) {
+    throw new TypeError("Numeric value must be finite.");
+  }
+
+  return number;
+}
+
 export function formatPrice(price) {
   if (typeof price !== "number" || !Number.isFinite(price)) {
     throw new TypeError("Price must be a finite number.");

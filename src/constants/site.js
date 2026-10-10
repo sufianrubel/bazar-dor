@@ -1,6 +1,5 @@
 export const siteConfig = {
   name: "বাজার দর",
-  dateLabel: "শনিবার, ১০ অক্টোবর, ২০২৬",
   metadata: {
     title: "বাজার দর | আজকের নিত্যপণ্যের দাম",
     description:

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Link as HeroUILink } from "@heroui/react";
-import { siteConfig } from "@/constants/site";
 import { homePageContent } from "@/data/page-content";
+import { formatCurrentDate } from "@/lib/format-date";
 
 export default function HomeHero() {
   const { hero } = homePageContent;
@@ -10,7 +10,7 @@ export default function HomeHero() {
     <section className="relative flex min-h-60 items-start justify-between overflow-hidden rounded-[22px] border border-[#e0e9e1] bg-white/75 px-5 py-2 sm:px-8 lg:px-10">
       <div className="relative z-10 max-w-2xl">
         <span className="inline-flex rounded-full bg-[#e6f4e9] px-3 py-0.5 text-sm font-semibold text-[#078a45]">
-          {siteConfig.dateLabel}
+          {formatCurrentDate()}
         </span>
         <h1 className="mt-3 text-2xl font-extrabold leading-tight tracking-tight text-[#202b23] sm:text-3xl lg:text-4xl">
           {hero.title}

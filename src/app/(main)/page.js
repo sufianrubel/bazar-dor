@@ -1,5 +1,5 @@
-import ApiErrorState from "@/components/shared/ApiErrorState";
 import PriceTicker from "@/components/layout/PriceTicker";
+import ApiErrorState from "@/components/shared/ApiErrorState";
 import SiteFooter from "@/components/layout/SiteFooter";
 import SiteHeader from "@/components/layout/SiteHeader";
 import HomeHero from "@/components/home/HomeHero";
@@ -28,23 +28,25 @@ export default async function HomePage() {
 
       <main className="mx-auto max-w-6xl space-y-8 px-4 py-5 sm:px-6">
         <HomeHero />
-        <ProductSection
-          title={sections.rising}
-          products={getProductsByPriceChange(products ?? [], "rising")}
-          trend="up"
-        />
-        <ProductSection
-          title={sections.falling}
-          products={getProductsByPriceChange(products ?? [], "falling")}
-          trend="down"
-        />
         {products ? (
-          <ProductSection
-            id={sections.allProductsId}
-            title={sections.all}
-            subtitle={`${formatPrice(products.length)}টি পণ্যের দাম এখানে রয়েছে`}
-            products={products}
-          />
+          <>
+            <ProductSection
+              title={sections.rising}
+              products={getProductsByPriceChange(products, "rising", 6)}
+              trend="up"
+            />
+            <ProductSection
+              title={sections.falling}
+              products={getProductsByPriceChange(products, "falling", 6)}
+              trend="down"
+            />
+            <ProductSection
+              id={sections.allProductsId}
+              title={sections.all}
+              subtitle={`${formatPrice(products.length)}টি পণ্যের দাম এখানে রয়েছে`}
+              products={products}
+            />
+          </>
         ) : (
           <ApiErrorState />
         )}

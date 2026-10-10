@@ -1,5 +1,6 @@
 import { categories } from "@/data/categories";
 import { ApiError, requestApi } from "@/lib/api-client";
+import { parseBengaliNumber } from "@/lib/format-price";
 
 function requireText(value, field) {
   if (typeof value !== "string" || value.trim() === "") {
@@ -10,11 +11,11 @@ function requireText(value, field) {
 }
 
 function requireNumber(value, field) {
-  if (typeof value !== "number" || !Number.isFinite(value)) {
+  try {
+    return parseBengaliNumber(value);
+  } catch {
     throw new ApiError(`The API response contains an invalid ${field}.`);
   }
-
-  return value;
 }
 
 function requireApiSegment(value, field) {

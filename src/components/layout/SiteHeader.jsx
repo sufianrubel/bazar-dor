@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ApiError } from "@/lib/api-client";
 import { getCategories } from "@/lib/catalog";
 import { siteConfig } from "@/constants/site";
+import { formatCurrentDate } from "@/lib/format-date";
 import ProfileMenu from "./ProfileMenu";
 
 export default async function SiteHeader({
@@ -42,7 +43,7 @@ export default async function SiteHeader({
               {siteConfig.name}
             </span>
             <span className="mt-0.5 block text-xs text-[#718077]">
-              {siteConfig.dateLabel}
+              {formatCurrentDate()}
             </span>
           </span>
         </Link>

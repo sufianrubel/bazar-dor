@@ -15,32 +15,32 @@ Phase 2 — API & Data Layer
 [x] Create reusable Bengali price, unit and percentage formatters
 
 Phase 3 — Shared UI
-[ ] Build shared Navbar with logo and Bengali date
-[ ] Add category navigation links with active states
-[ ] Implement Sign In / Sign Up or profile / Sign Out actions
-[ ] Build infinite scrolling price ticker
-[ ] Create reusable product card, price badge and skeleton components
-[ ] Build footer matching the Figma
-[ ] Ensure mobile, tablet and desktop responsiveness
+[x] Build shared Navbar with logo and Bengali date
+[x] Add category navigation links with active states
+[x] Implement Sign In / Sign Up or profile / Sign Out actions
+[x] Build infinite scrolling price ticker
+[x] Create reusable product card, price badge and skeleton components
+[x] Build footer matching the Figma
+[x] Ensure mobile, tablet and desktop responsiveness
 
 Phase 4 — Home Page
-[ ] Build hero section with heading, subtitle and banner image
-[ ] Connect primary CTA to #সব-পণ্য anchor
-[ ] Build আজ দাম বেড়েছে section with top 6 risers
-[ ] Build আজ দাম কমেছে section with top 6 fallers
-[ ] Build সব পণ্য section with responsive product grid
-[ ] Link product cards to product detail routes
-[ ] Add loading skeletons and API error handling
+[x] Build hero section with heading, subtitle and banner image
+[x] Connect primary CTA to #সব-পণ্য anchor
+[x] Build আজ দাম বেড়েছে section with top 6 risers
+[x] Build আজ দাম কমেছে section with top 6 fallers
+[x] Build সব পণ্য section with responsive product grid
+[x] Link product cards to product detail routes
+[x] Add loading skeletons and API error handling
 
 Phase 5 — Category Pages
-[ ] Create dynamic category route
-[ ] Show category title, icon and products
-[ ] Implement default sorting
-[ ] Implement price low-to-high sorting
-[ ] Implement price high-to-low sorting
-[ ] Parse Bengali numerals for correct numeric sorting
-[ ] Add skeleton, empty state and invalid-category handling
-[ ] Add return-home CTA for invalid categories
+[x] Create dynamic category route
+[x] Show category title, icon and products
+[x] Implement default sorting
+[x] Implement price low-to-high sorting
+[x] Implement price high-to-low sorting
+[x] Parse Bengali numerals for correct numeric sorting
+[x] Add skeleton, empty state and invalid-category handling
+[x] Add return-home CTA for invalid categories
 
 Phase 6 — Authentication
 [ ] Configure BetterAuth server and client
